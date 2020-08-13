@@ -2172,3 +2172,9 @@ com.al.blog.NotFoundException: 博客不存在
 2020-08-13 20:54:14.744  INFO 14152 --- [http-nio-8080-exec-1] com.al.blog.aspect.LogAspect             : RequestLog : {url='http://localhost:8080/1/al', ip='0:0:0:0:0:0:0:1', classMethod='com.al.blog.web.IndexController.index', args=[1, al]}
 2020-08-13 20:54:14.750  INFO 14152 --- [http-nio-8080-exec-1] com.al.blog.aspect.LogAspect             : result : index
 2020-08-13 20:54:14.750  INFO 14152 --- [http-nio-8080-exec-1] com.al.blog.aspect.LogAspect             : ------------doAfter-------------
+2020-08-13 20:55:04.485  INFO 14152 --- [http-nio-8080-exec-4] com.al.blog.aspect.LogAspect             : RequestLog : {url='http://127.0.0.1:8080/1/al', ip='127.0.0.1', classMethod='com.al.blog.web.IndexController.index', args=[1, al]}
+2020-08-13 20:55:04.486  INFO 14152 --- [http-nio-8080-exec-4] com.al.blog.aspect.LogAspect             : result : index
+2020-08-13 20:55:04.486  INFO 14152 --- [http-nio-8080-exec-4] com.al.blog.aspect.LogAspect             : ------------doAfter-------------
+2020-08-13 21:03:17.818  INFO 14152 --- [http-nio-8080-exec-2] com.al.blog.aspect.LogAspect             : RequestLog : {url='http://127.0.0.1:8080/1/al', ip='127.0.0.1', classMethod='com.al.blog.web.IndexController.index', args=[1, al]}
+2020-08-13 21:03:17.818  INFO 14152 --- [http-nio-8080-exec-2] com.al.blog.aspect.LogAspect             : result : index
+2020-08-13 21:03:17.818  INFO 14152 --- [http-nio-8080-exec-2] com.al.blog.aspect.LogAspect             : ------------doAfter-------------
