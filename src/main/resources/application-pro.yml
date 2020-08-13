@@ -1,0 +1,31 @@
+# \u73B0\u5728\u9ED8\u8BA4\u5C31\u662Fthymeleaf3 \u9ED8\u8BA4\u5C31\u662FHTML
+#spring:
+#  thymeleaf:
+#    mode: HTML
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 1234
+
+  jpa:
+    hibernate:
+      # 生产环境不需要它变动表结构
+      ddl-auto: none
+      
+    show-sql: true # 显示控制台sql
+
+# 日志
+logging:
+  level: 
+    root: warn # 提高等级
+    com.al: info
+  file:
+    # -pro
+    name: log/blog-pro.log
+    
+# 端口
+server:
+  port: 8081
