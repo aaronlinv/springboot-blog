@@ -1,8 +1,17 @@
 package com.al.blog.po;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+// 放Entity好像作用相同，且不会爆红
+@Table(name = "t_blog")
 public class Blog {
+    @Id
+    @GeneratedValue
     private Long id;
     private String title;
     private String content;
