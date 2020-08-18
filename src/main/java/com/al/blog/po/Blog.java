@@ -25,10 +25,19 @@ public class Blog {
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-
+    @ManyToOne
+    private Type type;
+    
     public Blog() {
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;
