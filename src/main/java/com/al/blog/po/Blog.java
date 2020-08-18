@@ -1,7 +1,9 @@
 package com.al.blog.po;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 // 放Entity好像作用相同，且不会爆红
@@ -28,7 +30,17 @@ public class Blog {
     @ManyToOne
     private Type type;
     
+    @ManyToMany
+    private List<Tag> tags = new ArrayList<>();
     public Blog() {
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public Type getType() {
