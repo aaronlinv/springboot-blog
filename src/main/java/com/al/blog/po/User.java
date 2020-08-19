@@ -3,7 +3,9 @@ package com.al.blog.po;
 import javax.persistence.*;
 import javax.xml.crypto.Data;
 import java.io.PipedReader;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -21,8 +23,20 @@ public class User {
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
-
+    
+    @OneToMany(mappedBy = "user")
+    private List<Blog> blogs = new ArrayList<>();
+    
+    
     public User() {
+    }
+
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
     }
 
     public Long getId() {

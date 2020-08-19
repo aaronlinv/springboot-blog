@@ -33,7 +33,17 @@ public class Blog {
     // 需要连同一个Tag新增到Blog设置，同时也会把Tag保存到数据库
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
+    @ManyToOne
+    private User user;
     public Blog() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Tag> getTags() {
