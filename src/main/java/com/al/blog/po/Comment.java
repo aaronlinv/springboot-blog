@@ -1,7 +1,9 @@
 package com.al.blog.po;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_comment")
@@ -18,8 +20,28 @@ public class Comment {
     private Date createTime;
     @OneToMany()
     private Blog blog;
+    @OneToMany(mappedBy = "parentComment")
+    private List<Comment>replyComment = new ArrayList<>();
     
+    @ManyToOne
+    private Comment parentComment;
     public Comment() {
+    }
+
+    public List<Comment> getReplyComment() {
+        return replyComment;
+    }
+
+    public void setReplyComment(List<Comment> replyComment) {
+        this.replyComment = replyComment;
+    }
+
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
     }
 
     public Blog getBlog() {
