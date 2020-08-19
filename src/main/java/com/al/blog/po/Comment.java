@@ -16,8 +16,18 @@ public class Comment {
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-
+    @OneToMany()
+    private Blog blog;
+    
     public Comment() {
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 
     public Long getId() {

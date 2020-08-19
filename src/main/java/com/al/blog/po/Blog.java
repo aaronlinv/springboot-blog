@@ -35,7 +35,19 @@ public class Blog {
     private List<Tag> tags = new ArrayList<>();
     @ManyToOne
     private User user;
+    // 被维护一端
+    @OneToMany(mappedBy = "blog")
+    private List<Comment> comments = new ArrayList<>();
+    
     public Blog() {
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public User getUser() {
