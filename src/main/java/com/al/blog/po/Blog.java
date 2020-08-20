@@ -33,7 +33,8 @@ public class Blog {
     @ManyToOne
     private Type type;
     
-    @ManyToMany
+    // 新增Blog连同Tag一同新增 级联新增
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
     
     public Blog() {
