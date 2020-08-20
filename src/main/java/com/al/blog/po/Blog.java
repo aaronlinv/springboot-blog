@@ -40,6 +40,10 @@ public class Blog {
     @ManyToOne
     private User user;
     
+    // 被维护
+    @OneToMany(mappedBy = "blog")
+    private List<Comment> comments = new ArrayList<>();
+    
     public Blog() {
     }
 
@@ -172,6 +176,14 @@ public class Blog {
         this.user = user;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -191,6 +203,7 @@ public class Blog {
                 ", type=" + type +
                 ", tags=" + tags +
                 ", user=" + user +
+                ", comments=" + comments +
                 '}';
     }
 }

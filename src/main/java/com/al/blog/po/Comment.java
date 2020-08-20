@@ -18,6 +18,12 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
+    @ManyToOne
+    private Blog blog; 
+    
+    public Comment() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -66,6 +72,14 @@ public class Comment {
         this.createTime = createTime;
     }
 
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -75,6 +89,7 @@ public class Comment {
                 ", content='" + content + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", createTime=" + createTime +
+                ", blog=" + blog +
                 '}';
     }
 }
