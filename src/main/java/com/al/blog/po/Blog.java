@@ -1,9 +1,6 @@
 package com.al.blog.po;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "t_blog")
@@ -25,7 +22,9 @@ public class Blog {
     private boolean published;
     private boolean recommend;
     
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
 
