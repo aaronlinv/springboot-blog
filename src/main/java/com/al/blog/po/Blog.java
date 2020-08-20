@@ -1,7 +1,9 @@
 package com.al.blog.po;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "t_blog")
 @Table
@@ -30,6 +32,9 @@ public class Blog {
 
     @ManyToOne
     private Type type;
+    
+    @ManyToMany
+    private List<Tag> tags = new ArrayList<>();
     
     public Blog() {
     }
@@ -146,6 +151,14 @@ public class Blog {
         this.type = type;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -163,6 +176,7 @@ public class Blog {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", type=" + type +
+                ", tags=" + tags +
                 '}';
     }
 }
