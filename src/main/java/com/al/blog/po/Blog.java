@@ -1,9 +1,18 @@
 package com.al.blog.po;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity(name = "t_blog")
+@Table
 public class Blog {
+    @Id
+    @GeneratedValue
     private Long id;
+    
     private String title;
     private String content;
     private String firstPicture;
