@@ -37,6 +37,9 @@ public class Blog {
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
     
+    @ManyToOne
+    private User user;
+    
     public Blog() {
     }
 
@@ -160,6 +163,15 @@ public class Blog {
         this.tags = tags;
     }
 
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -178,6 +190,7 @@ public class Blog {
                 ", updateTime=" + updateTime +
                 ", type=" + type +
                 ", tags=" + tags +
+                ", user=" + user +
                 '}';
     }
 }

@@ -1,7 +1,9 @@
 package com.al.blog.po;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -23,6 +25,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
+    @OneToMany(mappedBy = "user")
+    private List<Blog> blogs = new ArrayList<>();
+    
     public User() {
     }
 
@@ -98,6 +103,14 @@ public class User {
         this.updateTime = updateTime;
     }
 
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -110,6 +123,7 @@ public class User {
                 ", type=" + type +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", blogs=" + blogs +
                 '}';
     }
 }
