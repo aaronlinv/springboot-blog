@@ -28,6 +28,9 @@ public class Blog {
     private Date updateTime;
 
 
+    @ManyToOne
+    private Type type;
+    
     public Blog() {
     }
 
@@ -135,6 +138,14 @@ public class Blog {
         this.updateTime = updateTime;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -151,6 +162,7 @@ public class Blog {
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
                 '}';
     }
 }

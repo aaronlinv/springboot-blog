@@ -1,9 +1,8 @@
 package com.al.blog.po;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "t_type")
@@ -13,7 +12,11 @@ public class Type {
     
     private Long id;
     private String name;
-
+    
+    // 关系被维护端 根据Blog里面的type属性建立关系
+    @OneToMany(mappedBy = "type")
+    private List<Blog> blogs = new ArrayList<>();
+    
     public Type() {
     }
 
@@ -33,11 +36,20 @@ public class Type {
         this.name = name;
     }
 
+    public List<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(List<Blog> blogs) {
+        this.blogs = blogs;
+    }
+
     @Override
     public String toString() {
         return "Type{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogs=" + blogs +
                 '}';
     }
 }
