@@ -24,4 +24,9 @@ public class TypeController {
         model.addAttribute("page",typeService.listType(pageable));
         return "admin/types";
     }
+    
+    @GetMapping("/types/input")
+    public String input(){
+        return "admin/types-input";
+    }
 }
