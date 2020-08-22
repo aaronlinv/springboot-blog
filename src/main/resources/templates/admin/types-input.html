@@ -59,7 +59,7 @@
     <div class="m-container-small m-padded-tb-big">
         <!--container 响应移动端-->
         <div class="ui container">
-            <form action="#" method="post" class="ui form">
+            <form action="#" method="post" th:action="@{/admin/types}" class="ui form">
 
 
                 <div class="field">
@@ -78,7 +78,8 @@
                 <div class="ui right aligned container">
                     <!--onclick="window.history.go(-1)" 返回上个页面-->
                     <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-                    <button class="ui teal button">提交</button>
+                    <!--submit 提交-->
+                    <button class="ui teal submit button">提交</button>
 
                 </div>
             </form>

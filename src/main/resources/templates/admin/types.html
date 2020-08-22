@@ -72,8 +72,8 @@
                     <td th:text="${type.name}">可以练习</td>
                     <td>
                         <!--前面id会被type.id替换掉-->
-                        <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id}})" class="ui mini teal basic button">编辑</a>
-                        <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id}})" class="ui mini red basic button">删除</a>
+                        <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
+                        <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
                     </td>
 
                 </tr>
