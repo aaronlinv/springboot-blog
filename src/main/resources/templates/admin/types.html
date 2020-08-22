@@ -81,9 +81,10 @@
                 <tfoot>
                     <tr>
                         <th colspan="6">
-                            <div class="ui mini pagination menu">
-                                <a th:href="@{/admin/types/(page=${page.number}-1)}" class="item">上一页</a>
-                                <a th:href="@{/admin/types/(page=${page.number}+1)}" class="item">下一页</a>
+                            <div th:if="${page.totalPages}>1" class="ui mini pagination menu" >
+                                <!--th:unless 如果不 除...之外-->
+                                <a th:href="@{/admin/types/(page=${page.number}-1)}" th:unless="${page.first}" class="item">上一页</a>
+                                <a th:href="@{/admin/types/(page=${page.number}+1)}" th:unless="${page.last}" class="item">下一页</a>
                             </div>
                             <a th:href="@{/admin/types/input}" class="ui mini right floated teal basic button">新增</a>
                         </th>
