@@ -60,102 +60,16 @@
         <!--container 响应移动端-->
         <div class="ui container">
             <form action="#" method="post" class="ui form">
-                <div class="required field">
-                    <div class="ui left labeled input">
-                        <!--compact 边框适应文本长度-->
-                        <div class="ui selection compact teal basic dropdown label">
-                            <input type="hidden" value="原创">
-                            <i class="dropdown icon"></i>
-                            <div class="text">原创</div>
-                            <div class="menu">
-                                <div class="item" data-value="原创">原创</div>
-                                <div class="item" data-value="原创1">原创1</div>
-                                <div class="item" data-value="原创2">原创2</div>
-                            </div>
-                        </div>
-                        <input type="text" name="title" placeholder="标题">
-                    </div>
-                </div>
 
-                <div class="field">
-                    <!--style="z-index: 1!important;" 叠放层次放在最上层 这样markdown编辑全屏不会被挡到 -->
-                    <div id="md-content" style="z-index: 1!important;">
-                        <!--style="display: none" -->
-                        <textarea placeholder="博客内容" name="content" style="display: none"></textarea>
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <div class="ui left labeled action input">
-                            <label  class="ui compact teal basic label">分类</label>
-                            <!--fluid 占满宽度（一半）-->
-                            <div class="ui fluid selection dropdown">
-                                <input type="hidden" name="type">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">分类</div>
-                                <div class="menu">
-                                    <div class="item" data-value="1">错误日志</div>
-                                    <div class="item" data-value="2">错误手册</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui left labeled action input">
-                            <label  class="ui compact teal basic label">标签</label>
-                            <!--multiple多选  search可搜索-->
-                            <div class="ui fluid multiple search selection dropdown">
-                                <input type="hidden" name="tag">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">标签</div>
-                                <div class="menu">
-                                    <div class="item" data-value="1">java</div>
-                                    <div class="item" data-value="2">JS</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="field">
                     <div class="ui left labeled input">
-                        <label  class="ui teal basic label">首图</label>
-                        <input type="text" name="indexPicture" placeholder="首图引用地址">
+                        <label  class="ui teal basic label">名称</label>
+                        <input type="text" name="name" placeholder="分类名称">
                     </div>
 
                 </div>
 
-                <div class="inline fields">
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <!--hidden 默认不选中-->
-                            <input type="checkbox" id="recommend" name="recommend" checked class="hidden" >
-                            <label for="recommend">推荐</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <!--hidden 默认不选中-->
-                            <input type="checkbox" id="shareInfo" name="shareInfo" class="hidden" >
-                            <label for="shareInfo">转载声明</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <!--hidden 默认不选中-->
-                            <input type="checkbox" id="appreciation" name="appreciation" class="hidden" >
-                            <label for="appreciation">赞赏</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <!--hidden 默认不选中-->
-                            <input type="checkbox" id="comment" name="comment" class="hidden" >
-                            <label for="comment">评论</label>
-                        </div>
-                    </div>
-
-                </div>
                 <!--ui error message 显示提示信息-->
                 <div class="ui error message">
 
@@ -164,8 +78,7 @@
                 <div class="ui right aligned container">
                     <!--onclick="window.history.go(-1)" 返回上个页面-->
                     <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
-                    <button class="ui secondary button">保存</button>
-                    <button class="ui teal button">发布</button>
+                    <button class="ui teal button">提交</button>
 
                 </div>
             </form>
