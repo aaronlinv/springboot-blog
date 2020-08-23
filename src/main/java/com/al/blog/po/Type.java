@@ -1,6 +1,7 @@
 package com.al.blog.po;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class Type {
     @GeneratedValue
     
     private Long id;
+    @NotBlank(message = "不能为空")
     private String name;
     
     // 关系被维护端 根据Blog里面的type属性建立关系

@@ -9,9 +9,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,17 +32,22 @@ public class TypeController {
     }
     
     @GetMapping("/types/input")
-    public String input(){
+    public String input(Model model){
+        // 为了前端校验type输入非空
+        model.addAttribute("type", new Type());
         return "admin/types-input";
     }
     
     @PostMapping("/types")
-    public String post(Type type){
+    public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes){
+        if(result.hasErrors()){
+            return "admin/types-input";
+        }
         Type t = typeService.save(type);
         if (t == null) {
-            
+            attributes.addFlashAttribute("message","添加失败！");
         }else{
-            
+            attributes.addFlashAttribute("message","添加成功！");
         }
         return "redirect:/admin/types";
     }

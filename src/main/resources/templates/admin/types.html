@@ -56,6 +56,13 @@
     <div class="m-container-small m-padded-tb-big">
         <!--container 响应移动端-->
         <div class="ui container">
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示</div>
+                <div th:text="${message}"></div>
+                
+            </div>
+            
             <!--celled网格线-->
             <table class="ui celled table">
                 <thead>
@@ -150,6 +157,13 @@
 
     $('.ui.dropdown').dropdown({
         on:'hover'
+    });
+    
+    $('.message .close')
+    .on('click',function () {
+        $(this)
+        .closest('.message')
+        .transition('fade');
     });
 </script>
 </body>
