@@ -40,6 +40,13 @@ public class TypeController {
     
     @PostMapping("/types")
     public String post(@Valid Type type, BindingResult result, RedirectAttributes attributes){
+        // 不允许添加重复类型
+        Type typeByName = typeService.getTypeByName(type.getName());
+        if(typeByName!=null){
+            // 属性名 定义变量名 返回参数
+            result.rejectValue("name", "nameError","不能重复添加分类");
+        }
+            
         if(result.hasErrors()){
             return "admin/types-input";
         }
