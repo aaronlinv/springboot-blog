@@ -31,4 +31,13 @@ public class BlogQuery {
 
     public BlogQuery() {
     }
+
+    @Override
+    public String toString() {
+        return "BlogQuery{" +
+                "title='" + title + '\'' +
+                ", typeId=" + typeId +
+                ", recommend=" + recommend +
+                '}';
+    }
 }

@@ -16,7 +16,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,7 +38,7 @@ public class BlogServiceImpl implements BlogService {
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (blog != null && !"".equals(blog.getTitle())) {
-                    predicates.add(criteriaBuilder.like(root.<String>get("title"), blog.getTitle()));
+                    predicates.add(criteriaBuilder.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
                 }
 
                 if (blog.getTypeId() != null ) {
@@ -52,12 +54,19 @@ public class BlogServiceImpl implements BlogService {
         }, pageable);
     }
 
+    @Transactional
     @Override
     public Blog save(Blog blog) {
+        blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
+        blog.setViews(0);
+        
+        
         return blogRepository.save(blog);
     }
 
     @Override
+    @Transactional
     public Blog updateBlog(Long id, Blog blog) {
         Blog blogById = blogRepository.getOne(id);
         if (blogById == null) {
@@ -68,6 +77,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional
     public void deleteBlog(Long id) {
         blogRepository.deleteById(id);
     }

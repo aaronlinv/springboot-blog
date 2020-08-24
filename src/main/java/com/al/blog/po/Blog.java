@@ -13,6 +13,10 @@ public class Blog {
     private Long id;
     
     private String title;
+    // 大字段类型
+    // 懒加载
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     private String firstPicture;
     private String flag;
@@ -43,6 +47,11 @@ public class Blog {
     // 被维护
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
+    
+    // 用于新增博客时传入后端tags
+    // 不会成为数据库字段
+    @Transient
+    private String tagIds;
     
     public Blog() {
     }
@@ -182,6 +191,15 @@ public class Blog {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
     }
 
     @Override
