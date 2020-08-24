@@ -10,13 +10,13 @@
 <body>
 <!--导航-->
     <!--m 自定义 间距 上下 -->
-    <nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
                 <h2 class="ui teal header item">管理后台</h2>
-                <a href="#" class="active m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
                 <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-                <a href="#" class="m-item item m-mobile-hide"><i class="target icon"></i>标签</a>
+                <a href="#" class="active m-item item m-mobile-hide"><i class="target icon"></i>标签</a>
                 <div class="right m-item m-mobile-hide menu">
 
                     <div class="ui dropdown item">
@@ -90,10 +90,10 @@
                         <th colspan="6">
                             <div th:if="${page.totalPages}>1" class="ui mini pagination menu" >
                                 <!--th:unless 如果不 除...之外-->
-                                <a th:href="@{/admin/types/(page=${page.number}-1)}" th:unless="${page.first}" class="item">上一页</a>
-                                <a th:href="@{/admin/types/(page=${page.number}+1)}" th:unless="${page.last}" class="item">下一页</a>
+                                <a th:href="@{/admin/tags/(page=${page.number}-1)}" th:unless="${page.first}" class="item">上一页</a>
+                                <a th:href="@{/admin/tags/(page=${page.number}+1)}" th:unless="${page.last}" class="item">下一页</a>
                             </div>
-                            <a th:href="@{/admin/types/input}" class="ui mini right floated teal basic button">新增</a>
+                            <a th:href="@{/admin/tags/input}" class="ui mini right floated teal basic button">新增</a>
                         </th>
                     </tr>
                 </tfoot>

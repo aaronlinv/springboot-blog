@@ -1,6 +1,8 @@
 package com.al.blog.po;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +11,9 @@ import java.util.List;
 public class Tag {
     @Id
     @GeneratedValue
-    private String id;
+    private Long id;
     
+    @NotBlank(message = "标签名不能为空")
     private String name;
     
     @ManyToMany(mappedBy = "tags")
@@ -19,11 +22,11 @@ public class Tag {
     public Tag() {  
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
