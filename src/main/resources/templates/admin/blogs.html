@@ -56,7 +56,11 @@
     <div class="m-container-small m-padded-tb-big">
         <!--container 响应移动端-->
         <div class="ui container">
-            <form action="#" method="post" class="ui form secondary segment">
+            <div class="ui form secondary segment">
+                <!--解决上下页 不会传动态条件的问题-->
+                <input type="hidden" name="page">
+                
+                
                 <!--默认是占满宽度，inline 就缩小宽度-->
                 <div class="inline fields">
                     <div class="field">
@@ -65,14 +69,17 @@
 
                     <div class="field">
                         <div class="ui selection dropdown">
-                            <input type="hidden" name="type">
+                            <input type="hidden" name="typeId">
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu">
                                 <!--data-value="1" 为传入后端的值-->
-                                <div class="item" data-value="1">开发者手册</div>
+                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">开发者手册</div>
+                                <!--thymeleaf隐藏-->
+                                <!--/*-->
                                 <div class="item" data-value="2">开发者手册2</div>
                                 <div class="item" data-value="3">开发者手册3</div>
+                                <!--*/-->
                             </div>
                         </div>
                     </div>
@@ -86,13 +93,14 @@
                     </div>
 
                     <div class="field">
-                        <button class="ui mini teal basic button"> <i class="search icon"></i>搜索</button>
+                        <button type="button" id="search-btn" class="ui mini teal basic button"> <i class="search icon"></i>搜索</button>
                     </div>
 
                 </div>
-            </form>
+            </div>
             <!--celled网格线-->
-            <table class="ui compact teal table">
+            <div id="table-container">
+            <table th:fragment="blogList" class="ui compact teal table">
                 <thead>
                 <tr>
                     <th></th>
@@ -104,15 +112,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>可以练习</td>
-                    <td>认知升级</td>
-                    <td>是</td>
-                    <td>2020-08-12 09:45</td>
+                <tr th:each="blog,iterStat : ${page.content}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${blog.title}">可以练习</td>
+                    <td th:text="${blog.type.name}">认知升级</td>
+                    <td th:text="${blog.recommend}?'是':'否' ">是</td>
+                    <td th:text="${blog.updateTime}">2020-08-12 09:45</td>
                     <td>
-                        <a href="#" class="ui mini teal basic button">编辑</a>
-                        <a href="#" class="ui mini red basic button">删除</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/input/(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/delete/(id=${blog.id})}" class="ui mini red basic button">删除</a>
                     </td>
 
                 </tr>
@@ -120,16 +128,16 @@
                 <tfoot>
                     <tr>
                         <th colspan="6">
-                            <div class="ui mini pagination menu">
-                                <a class="item">上一页</a>
-                                <a class="item">下一页</a>
+                            <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
+                                <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="item">上一页</a>
+                                <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="item">下一页</a>
                             </div>
                             <a href="#" class="ui mini right floated teal basic button">新增</a>
                         </th>
                     </tr>
                 </tfoot>
             </table>
-
+            </div>
 
         </div>
     </div>
@@ -175,7 +183,7 @@
 
     </footer>
 <!-- 左右加/*/ 在html中是注释，但是模板中有效-->
-<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <!--/*/</th:block>/*/-->
@@ -188,6 +196,26 @@
 
     $('.ui.dropdown').dropdown({
         on:'hover'
+    });
+    // 点击上下页 把要跳转的页面通过js传入表单中的隐藏域
+    function page(obj) {
+        // name=gage 的隐藏域 得到page-data 数据
+        $("[name='page']").val($(obj).data("page"));
+        loaddata();
+    }
+    // Ajax
+    function loaddata() {
+        // 前面是thymeleaf地址写法
+        $('#table-container').load(/*[[@{/amdin/blogs/search}]]*/"/admin/blogs/search",{
+            title : $("[name='title']").val(),
+            typeId : $("[name='typeId']").val(),
+            recommend : $("[name='recommend']").prop('checked'),
+            page : $("[name='page']").val()
+        });
+    }
+    
+    $('#search-btn').click(function () {
+        loaddata();
     });
 </script>
 </body>
