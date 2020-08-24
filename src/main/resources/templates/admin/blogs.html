@@ -68,20 +68,27 @@
                     </div>
 
                     <div class="field">
-                        <div class="ui selection dropdown">
-                            <input type="hidden" name="typeId">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">分类</div>
-                            <div class="menu">
-                                <!--data-value="1" 为传入后端的值-->
-                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">开发者手册</div>
-                                <!--thymeleaf隐藏-->
-                                <!--/*-->
-                                <div class="item" data-value="2">开发者手册2</div>
-                                <div class="item" data-value="3">开发者手册3</div>
-                                <!--*/-->
+                        <div class="ui labeled action input">
+                            <!--type 用于清除按钮事件-->
+                            <div class="ui type selection dropdown">
+                                <input type="hidden" name="typeId">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">分类</div>
+                                <div class="menu">
+                                    <!--data-value="1" 为传入后端的值-->
+                                    <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">开发者手册</div>
+                                    <!--thymeleaf隐藏-->
+                                    <!--/*-->
+                                    <div class="item" data-value="2">开发者手册2</div>
+                                    <div class="item" data-value="3">开发者手册3</div>
+                                    <!--*/-->
+                                </div>
                             </div>
+                            <!--clear 清除事件-->
+                            <button id="clear-btn"  class="ui button">clear</button>
                         </div>
+
+                        
                     </div>
 
                     <div class="field">
@@ -107,6 +114,7 @@
                     <th>标题</th>
                     <th>类型</th>
                     <th>推荐</th>
+                    <th>发布情况</th>
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
@@ -117,6 +125,7 @@
                     <td th:text="${blog.title}">可以练习</td>
                     <td th:text="${blog.type.name}">认知升级</td>
                     <td th:text="${blog.recommend}?'是':'否' ">是</td>
+                    <td th:text="${blog.published}?'发布':'草稿' ">草稿</td>
                     <td th:text="${blog.updateTime}">2020-08-12 09:45</td>
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/input/(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
@@ -127,7 +136,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="6">
+                        <th colspan="7">
                             <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
                                 <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="item">上一页</a>
                                 <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="item">下一页</a>
@@ -232,6 +241,12 @@
         $(this)
         .closest('.message')
         .transition('fade')
+    });
+    
+    $('#clear-btn')
+    .on('click',function () {
+        $('.type.ui.dropdown')
+        .dropdown('clear')
     });
 </script>
 </body>
