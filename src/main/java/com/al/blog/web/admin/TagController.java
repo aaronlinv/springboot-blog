@@ -63,6 +63,34 @@ public class TagController {
         attributes.addFlashAttribute("message","删除成功");
         return "redirect:/admin/tags";
     }
+    @GetMapping("/tags/{id}/input")
+    public String editTags(@PathVariable Long id,Model model){
+        Tag tag = tagService.getTag(id);
+        model.addAttribute("tag", tag);
+        return "admin/tags-input";
+    }
+    
+    @PostMapping("/tags/{id}")
+    public String post(@Valid Tag tag, BindingResult result,@PathVariable Long id, RedirectAttributes attributes) {
+        System.out.println("tag == >"+tag);
+        Tag tagByName = tagService.getTagByName(tag.getName());
+        if (tagByName != null) {
+            result.rejectValue("name", "nameError", "不能添加重复分类");
+        }
+
+        if (result.hasErrors()) {
+            return "/admin/tags-input";
+        }
+        // 更新
+        Tag t = tagService.updateTag(id,tag);
+        if (t == null) {
+            attributes.addFlashAttribute("message", "添加失败！");
+        } else {
+            attributes.addFlashAttribute("message", "添加成功！");
+        }
+        return "redirect:/admin/tags";
+    }
+    
     
     
 }
