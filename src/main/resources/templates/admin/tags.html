@@ -74,13 +74,13 @@
                 </thead>
                 <tbody>
                 <!--iterStat 为索引值-->
-                <tr th:each="type,iterStat : ${page.content}">
+                <tr th:each="tag,iterStat : ${page.content}">
                     <td th:text="${iterStat.count}">1</td>
-                    <td th:text="${type.name}">可以练习</td>
+                    <td th:text="${tag.name}">可以练习</td>
                     <td>
                         <!--前面id会被type.id替换掉-->
-                        <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                        <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+                        <a href="#" th:href="@{/admin/tags/{id}/input(id=${tag.id})}" class="ui mini teal basic button">编辑</a>
+                        <a href="#" th:href="@{/admin/tags/{id}/delete(id=${tag.id})}" class="ui mini red basic button">删除</a>
                     </td>
 
                 </tr>
