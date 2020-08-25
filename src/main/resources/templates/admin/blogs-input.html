@@ -93,7 +93,8 @@
                             <label  class="ui compact teal basic label">分类</label>
                             <!--fluid 占满宽度（一半）-->
                             <div class="ui fluid selection dropdown">
-                                <input type="hidden" name="type.id" th:value="*{type.id}">
+                                <!--老师解决方法：判断type为空就不适用type-->
+                                <input type="hidden" name="type.id" th:value="*{type.id}!=null ? *{type.id}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">分类</div>
                                 <div class="menu">
