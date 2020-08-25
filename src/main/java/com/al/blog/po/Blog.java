@@ -33,7 +33,7 @@ public class Blog {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
-
+    
     @ManyToOne
     private Type type;
 
@@ -52,7 +52,9 @@ public class Blog {
     // 不会成为数据库字段
     @Transient
     private String tagIds;
-
+    
+    
+    private String description;
     public Blog() {
     }
 
@@ -202,6 +204,14 @@ public class Blog {
         this.tagIds = tagIds;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void init() {
         this.tagIds = tagsToIds(this.getTags());
     }
@@ -243,6 +253,8 @@ public class Blog {
                 ", tags=" + tags +
                 ", user=" + user +
                 ", comments=" + comments +
+                ", tagIds='" + tagIds + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
