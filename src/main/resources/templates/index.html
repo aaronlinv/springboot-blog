@@ -54,7 +54,7 @@
                              </div>
                              <div class="right aligned column">
                                  <!--h3是block元素会换行-->
-                                 共<h3 class="ui orange header m-inline-block m-text-thin"> 14 </h3>篇
+                                 共<h3 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}"> 14 </h3>篇
                              </div>
                         </div>
                     </div>
@@ -64,33 +64,34 @@
                     <div class="ui attached segment m-padded-tb-large">
                         <!--padded 内部边距-->
                         <!--vertical竖直排布 中间会自动加线-->
-                        <div class="ui padded vertical segment">
+                        <div class="ui padded vertical segment" th:each="blog : ${page.content}">
                             <!--mobile reversed 图片和文字换位置 图片在上 eleven 和five 反转-->
-                            <div class="ui mobile reversed stackable grid">
+                            <!--middle aligned 图片上下居中-->
+                            <div class="ui middle aligned mobile reversed stackable grid">
                                 <div class="eleven wide column">
-                                    <h3 class="ui header">文章标题</h3>
-                                    <p class="m-text">文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  </p>
+                                    <a class="ui header" ><a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">文章标题</a></a>
+                                    <p class="m-text" th:text="|${blog.description}...|">文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  文章内容  </p>
 
                                     <div class="ui grid">
                                         <div class="eleven wide column">
                                             <!--每个item水平摆放-->
                                             <div class="ui mini horizontal link list">
                                                 <div class="item">
-                                                    <img src="http://lorempixel.com/100/100/" alt="" class="ui avatar image">
-                                                    <div class="content"> <a href="#" class="header">Aaron</a></div>
+                                                    <img th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                                    <div class="content"> <a href="#" class="header" th:text="${blog.user.nickname}">Aaron</a></div>
 
                                                 </div>
                                                 <div class="item">
-                                                    <i class="calendar icon"></i>2020-8-5
+                                                    <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-8-5</span>
                                                 </div>
 
                                                 <div class="item">
-                                                    <i class="eye icon"></i> 2333
+                                                    <i class="eye icon"></i> <span th:text="${blog.views}">2333</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="right aligned five wide column">
-                                            <a href="#" class="ui label teal basic m-padded-tiny" target="_blank">认知升级</a>
+                                            <a href="#" class="ui label teal basic m-padded-tiny" target="_blank" th:text="${blog.type.name}">认知升级</a>
                                         </div>
 
                                     </div>
@@ -98,13 +99,14 @@
                                 </div>
 
                                 <div class="five wide column">
-                                    <a href="#" target="_blank">
-                                        <img src="http://lorempixel.com/800/400/" alt="" class="ui rounded image">
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                        <img src="http://lorempixel.com/800/400/" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--/*-->
                     <div class="ui attached segment m-padded-tb-large">
                         <!--padded 内部边距-->
                         <!--vertical竖直排布 中间会自动加线-->
@@ -320,16 +322,17 @@
                             </div>
                         </div>
                     </div>
+                    <!--*/-->
 
                     <!--footer-->
-                    <div class="ui bottom attached segment">
+                    <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
                         <div class="ui middle aligned two column grid">
 
                             <div class="column">
-                                <a href="#" class="ui mini teal basic button">上一页</a>
+                                <a th:href="@{/(page=${page.number}-1)}" th:if="${page.first}" href="#" class="ui mini teal basic button">上一页</a>
                             </div>
                             <div class="right aligned column">
-                                <a href="#" class="ui mini teal basic button">下一页</a>
+                                <a th:href="@{/(page=${page.number}+1)}" th:if="${page.last}"href="#" class="ui mini teal basic button">下一页</a>
                             </div>
                         </div>
                     </div>
@@ -353,6 +356,12 @@
                         <div class="ui teal segment">
                             <!--填充fluid-->
                             <div class="ui fluid vertical menu">
+                                <a href="#" class="item" th:each="type : ${types}">
+                                    <span th:text="${type.name}">学习日志</span>
+                                    <!--left pointing 左边小角-->
+                                    <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
+                                </a>
+                                <!--/*-->
                                 <a href="#" class="item">
                                     学习日志
                                     <!--left pointing 左边小角-->
@@ -368,12 +377,7 @@
                                     <!--left pointing 左边小角-->
                                     <div class="ui teal basic left pointing label">13</div>
                                 </a>
-                                <a href="#" class="item">
-                                    学习日志
-                                    <!--left pointing 左边小角-->
-                                    <div class="ui teal basic left pointing label">13</div>
-                                </a>
-
+                                <!--*/-->
                             </div>
                         </div>
                     </div>
@@ -391,9 +395,11 @@
                         </div>
 
                         <div class="ui teal segment">
-                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
-                                方法论<div class="detail">2</div>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                                <span th:text="${tag.name}">方法论</span>
+                                <div class="detail" th:text="${#arrays.length(tag.blogs)}">2</div>
                             </a>
+                            <!--/*-->
                             <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
                                 经验分享<div class="detail">2</div>
                             </a>
@@ -401,29 +407,32 @@
                                 Java<div class="detail">2</div>
                             </a>                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
                                 数据库<div class="detail">2</div>
-                            </a>                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                            </a>                            
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
                                 SpringBoot<div class="detail">2</div>
                             </a>
-
+                            <!--*/-->
                         </div>
                     </div>
                     <!--最新推荐-->
                     <div class="ui segments m-margin-top-larger">
-                        <div class="ui secondary segment">
+                        <div class="ui secondary segment" >
                             <i class="bookmark icon"></i>最新推荐
                         </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black m-text-thin ">用户故事</a>
+                        <div class="ui segment" th:each="blog :${recommendBlogs}">
+                            <a th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin " th:text="${blog.title}">用户故事</a>
                         </div>
-                        <div class="ui segment">
-                            <a href="#" target="_blank" class="m-black m-text-thin">用户故事</a>
-                        </div>
+                        <!--/*-->
                         <div class="ui segment">
                             <a href="#" target="_blank" class="m-black m-text-thin">用户故事</a>
                         </div>
                         <div class="ui segment">
                             <a href="#" target="_blank" class="m-black m-text-thin">用户故事</a>
                         </div>
+                        <div class="ui segment">
+                            <a href="#" target="_blank" class="m-black m-text-thin">用户故事</a>
+                        </div>
+                        <!--*/-->
                     </div>
                     <!--二维码-->
                     <h4 class="ui horizontal divider header m-margin-top-larger">

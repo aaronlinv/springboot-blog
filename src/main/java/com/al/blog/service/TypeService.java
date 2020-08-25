@@ -20,4 +20,6 @@ public interface TypeService {
     void deleteType(Long id);
 
     Type getTypeByName(String name);
+    
+    List<Type> listTypeTop(Integer size);
 }
