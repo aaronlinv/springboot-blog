@@ -59,13 +59,15 @@
     <div class="m-container m-padded-tb-big">
         <!--container 响应移动端-->
         <div class="ui container">
-            <form id="blog-form" th:action="@{/admin/blogs}" method="post" class="ui form">
+            <form id="blog-form" th:action="@{/admin/blogs}" th:object="${blog}" method="post" class="ui form">
                 <input type="hidden" name="published">
+                <input type="hidden" name="id" th:value="*{id}">
+                
                 <div class="required field">
                     <div class="ui left labeled input">
                         <!--compact 边框适应文本长度-->
                         <div class="ui selection compact teal basic dropdown label">
-                            <input type="hidden" value="原创">
+                            <input type="hidden" value="原创" name="flag" th:value="*{flag}">
                             <i class="dropdown icon"></i>
                             <div class="text">原创</div>
                             <div class="menu">
@@ -74,7 +76,7 @@
                                 <div class="item" data-value="原创2">原创2</div>
                             </div>
                         </div>
-                        <input type="text" name="title" placeholder="标题">
+                        <input type="text" name="title" placeholder="标题" th:value="*{title}">
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@
                     <!--style="z-index: 1!important;" 叠放层次放在最上层 这样markdown编辑全屏不会被挡到 -->
                     <div id="md-content" style="z-index: 1!important;">
                         <!--style="display: none" -->
-                        <textarea placeholder="博客内容" name="content" style="display: none"></textarea>
+                        <textarea placeholder="博客内容" name="content" style="display: none" th:text="*{content}"></textarea>
                     </div>
                 </div>
                 <div class="two fields">
@@ -91,7 +93,7 @@
                             <label  class="ui compact teal basic label">分类</label>
                             <!--fluid 占满宽度（一半）-->
                             <div class="ui fluid selection dropdown">
-                                <input type="hidden" name="type.id">
+                                <input type="hidden" name="type.id" th:value="*{type.id}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">分类</div>
                                 <div class="menu">
@@ -105,7 +107,7 @@
                             <label  class="ui compact teal basic label">标签</label>
                             <!--multiple多选  search可搜索-->
                             <div class="ui fluid multiple search selection dropdown">
-                                <input type="hidden" name="tagIds">
+                                <input type="hidden" name="tagIds" th:value="*{tagIds}" value="1,2,3,4">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">标签</div>
                                 <div class="menu">
@@ -122,7 +124,7 @@
                 <div class="required field">
                     <div class="ui left labeled input">
                         <label  class="ui teal basic label">首图</label>
-                        <input type="text" name="firstPicture" placeholder="首图引用地址">
+                        <input type="text" name="firstPicture" placeholder="首图引用地址" th:value="*{firstPicture}">
                     </div>
 
                 </div>
@@ -131,28 +133,28 @@
                     <div class="field">
                         <div class="ui checkbox">
                             <!--hidden 默认不选中-->
-                            <input type="checkbox" id="recommend" name="recommend" checked class="hidden" >
+                            <input type="checkbox" id="recommend" name="recommend" checked class="hidden"  th:checked="*{recommend}">
                             <label for="recommend">推荐</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui checkbox">
                             <!--hidden 默认不选中-->
-                            <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden" >
+                            <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden" th:checked="*{shareStatement}">
                             <label for="shareStatement">转载声明</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui checkbox">
                             <!--hidden 默认不选中-->
-                            <input type="checkbox" id="appreciation" name="appreciation" class="hidden" >
+                            <input type="checkbox" id="appreciation" name="appreciation" class="hidden" th:checked="*{appreciation}">
                             <label for="appreciation">赞赏</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui checkbox">
                             <!--hidden 默认不选中-->
-                            <input type="checkbox" id="commentabled" name="commentabled" class="hidden" >
+                            <input type="checkbox" id="commentabled" name="commentabled" class="hidden" th:checked="*{commentabled}">
                             <label for="commentabled">评论</label>
                         </div>
                     </div>

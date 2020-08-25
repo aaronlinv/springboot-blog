@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,8 +61,22 @@ public class BlogController {
     public String input(Model model) {
         // 初始化避免页面报错
         model.addAttribute("blog", new Blog());
+        setTagsAndTypes(model);
+        return INPUT;
+    }
+    private void setTagsAndTypes(Model model){
         model.addAttribute("types", typeService.listType());
         model.addAttribute("tags", tagService.listTag());
+    }
+    
+    @GetMapping("/blogs/{id}/input")
+    public String editInput(@PathVariable Long id, Model model) {
+        // 初始化避免页面报错
+        Blog blog = blogService.getBlog(id);
+        // 转tag list 为字符串 1,2,3
+        blog.init();
+        model.addAttribute("blog", blog);
+        setTagsAndTypes(model);
         return INPUT;
     }
 

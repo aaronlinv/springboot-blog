@@ -11,7 +11,7 @@ public class Blog {
     @Id
     @GeneratedValue
     private Long id;
-    
+
     private String title;
     // 大字段类型
     // 懒加载
@@ -21,13 +21,13 @@ public class Blog {
     private String firstPicture;
     private String flag;
     private Integer views;
-    
+
     private boolean appreciation;
     private boolean shareStatement;
     private boolean commentabled;
     private boolean published;
     private boolean recommend;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,23 +36,23 @@ public class Blog {
 
     @ManyToOne
     private Type type;
-    
+
     // 新增Blog连同Tag一同新增 级联新增
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
-    
+
     @ManyToOne
     private User user;
-    
+
     // 被维护
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
-    
+
     // 用于新增博客时传入后端tags
     // 不会成为数据库字段
     @Transient
     private String tagIds;
-    
+
     public Blog() {
     }
 
@@ -200,6 +200,27 @@ public class Blog {
 
     public void setTagIds(String tagIds) {
         this.tagIds = tagIds;
+    }
+
+    public void init() {
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+    private String tagsToIds(List<Tag> tags) {
+        StringBuilder ids = new StringBuilder();
+        if (!tags.isEmpty()) {
+            boolean flag = false;
+            // 1,2,3
+            for (Tag tag : tags) {
+                if (flag) {
+                    ids.append(",");
+                } else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+        }
+        return ids.toString();
     }
 
     @Override
