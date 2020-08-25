@@ -89,7 +89,12 @@ public class BlogController {
         blog.setUser(user);
         blog.setType(typeService.getType(blog.getType().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
-        
+        // 自己解决更新createTime和views为null的问题
+        if(blog.getId() !=null){
+            Blog b = blogService.getBlog(blog.getId());
+            blog.setViews(b.getViews());
+            blog.setCreateTime(b.getCreateTime());
+        }
         
         Blog b = blogService.save(blog);
         if (b == null) {
