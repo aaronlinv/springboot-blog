@@ -1,6 +1,7 @@
 package com.al.blog.web.admin;
 
 import com.al.blog.po.Blog;
+import com.al.blog.po.Type;
 import com.al.blog.po.User;
 import com.al.blog.service.BlogService;
 import com.al.blog.service.TagService;
@@ -60,7 +61,9 @@ public class BlogController {
     @GetMapping("/blogs/input")
     public String input(Model model) {
         // 初始化避免页面报错
-        model.addAttribute("blog", new Blog());
+        Blog blog = new Blog();
+        blog.setType(new Type());
+        model.addAttribute("blog", blog);
         setTagsAndTypes(model);
         return INPUT;
     }
