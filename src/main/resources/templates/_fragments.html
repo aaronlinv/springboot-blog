@@ -24,10 +24,15 @@
             <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5}? 'active'"><i class="info icon"></i>关于我</a>
 
             <div class="right item m-mobile-hide">
-                <div class="ui icon inverted transparent input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search link icon"></i>
-                </div>
+                
+                <form class="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon inverted transparent input">
+                        <input type="text" placeholder="Search..." name="query" th:value="${query}">
+                        <!--老师的，点击i标签 没有效果..-->
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+                
             </div>
         </div>
     </div>

@@ -10,9 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -43,6 +41,15 @@ public class IndexController {
         model.addAttribute("tags", tagService.listTagTop(10));        
         model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(8));        
         return "index";
+    }  
+    
+    @PostMapping("/search")
+    public String index(@PageableDefault(size = 2,sort = {"updateTime"},direction = Sort.Direction.DESC) 
+                                    Pageable pageable, Model model,@RequestParam String query) {
+        
+        model.addAttribute("page", blogService.listBlog("%"+query+"%",pageable));
+        model.addAttribute("query", query);
+        return "search";
     }
 
     @GetMapping("/blog/{id}")
