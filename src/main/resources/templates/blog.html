@@ -437,7 +437,7 @@
     });
     
     function postData() {
-        $('#comment-container').load(/*[[/comments]]*/"",{
+        $('#comment-container').load(/*[[@{/comments}]]*/"",{
             "parentComment.id" :$("[name='parentComment.id']").val(),
             "blog.id":$("[name='blog.name']").val(),
             "nickname":$("[name='nickname']").val(),
