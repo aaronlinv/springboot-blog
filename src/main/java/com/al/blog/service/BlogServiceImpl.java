@@ -4,6 +4,7 @@ import com.al.blog.NotFoundException;
 import com.al.blog.dao.BlogRepository;
 import com.al.blog.po.Blog;
 import com.al.blog.po.Type;
+import com.al.blog.util.MarkdownUtils;
 import com.al.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,22 +35,39 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.getOne(id);
+        if (blog == null) {
+            throw new NotFoundException("该博客不存在");
+        }
+        // 在这里操作可能会影响数据库数据
+        // 所以new 一个新对象
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog, b);
+        
+        String content =b.getContent();
+        String markdown = MarkdownUtils.markdownToHtmlExtensions(content);
+        b.setContent(markdown);
+        return b;
+    }
+
+    @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
         return blogRepository.findAll(new Specification<Blog>() {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (blog != null && !"".equals(blog.getTitle())) {
-                    predicates.add(criteriaBuilder.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
+                    predicates.add(criteriaBuilder.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
                 }
 
-                if (blog.getTypeId() != null ) {
+                if (blog.getTypeId() != null) {
                     predicates.add(criteriaBuilder.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
                 }
-                if(blog.isRecommend()){
+                if (blog.isRecommend()) {
                     predicates.add(criteriaBuilder.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
                 }
-                
+
                 criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
                 return null;
             }
@@ -76,18 +94,17 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public Blog save(Blog blog) {
-        if(blog.getId() == null){
+        if (blog.getId() == null) {
             // 新增
             blog.setCreateTime(new Date());
             blog.setUpdateTime(new Date());
             blog.setViews(0);
-        }else{
+        } else {
             // 修改
             blog.setUpdateTime(new Date());
         }
-        
-        
-        
+
+
         return blogRepository.save(blog);
     }
 

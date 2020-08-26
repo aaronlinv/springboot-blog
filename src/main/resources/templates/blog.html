@@ -48,14 +48,14 @@
             <div class="ui top attached segment">
                 <div class="ui horizontal link list">
                     <div class="item">
-                        <img src="http://lorempixel.com/100/100/" alt="" class="ui avatar image">
-                        <div class="content"><a href="#" class="header">Aaron</a></div>
+                        <img src="http://lorempixel.com/100/100/" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                        <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">Aaron</a></div>
                     </div>
                     <div class="item">
-                        <i class="calendar icon"></i>2020-8-6
+                        <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-8-6</span>
                     </div>
                     <div class="item">
-                        <i class="eye icon"></i>2333
+                        <i class="eye icon"></i><span th:text="${blog.views}">2333</span>
                     </div>
                 </div>
 
@@ -64,17 +64,18 @@
             <div class="ui attached segment">
                 <!--fluid撑满外层-->
                 <!--rounded image 没有加image rounded 无效-->
-                <img src="http://lorempixel.com/800/400/" alt="" class="ui fluid rounded image">
+                <img th:src="@{${blog.firstPicture}}" src="http://lorempixel.com/800/400/" alt="" class="ui fluid rounded image">
             </div>
             <!--内容-->
             <div class="ui attached padded segment">
                 <!--basic 去掉segment外部的框框-->
                 <div class="ui right aligned basic segment">
-                    <div class="ui orange basic label">原创</div>
+                    <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
                 </div>
-                <h2 class="ui center aligned header">非暴力沟通</h2>
+                <h2 class="ui center aligned header" th:text="${blog.title}">非暴力沟通</h2>
                 <br>
-                <div id="content" class="typo typo-selection js-toc-content m-padded-lr-response m-padded-tb-large">
+                <div id="content" class="typo typo-selection js-toc-content m-padded-lr-response m-padded-tb-large" th:utext="${blog.content}">
+                    <!--/*-->
                     <p>也许我们并不认为自己的谈话方式是暴力的，但我们的语言确实常常引发自己和他人的痛苦</p>
                     <p>——马歇尔·卢森堡 《非暴力沟通》</p>
                     <br>
@@ -92,10 +93,12 @@
                     <p>豆瓣读书：<a href="https://book.douban.com/subject/3533221/" target="_blank" rel="noopener">非暴力沟通</a></p>
                     <p>知乎相关问答：<a href="https://www.zhihu.com/question/20613214" target="_blank" rel="noopener">如何评价《非暴力沟通》这本书？</a></p>
                     <p>最后推荐一部还蛮有意思的跟沟通相关的短片<a href="https://www.bilibili.com/video/BV187411m7zb" target="_blank" rel="noopener">《静音》</a></p>
+                    <!--*/-->
                 </div>
+                
                 <!--标签-->
                 <div class="m-padded-lr-response">
-                    <div class="ui basic teal left pointing label">零碎</div>
+                    <div class="ui basic teal left pointing label" th:each="tag :${blog.tags}" th:text="${tag.name}">零碎</div>
                 </div>
                 <!--赞赏-->
                 <div class="ui center aligned basic segment">
@@ -107,11 +110,11 @@
                         <!--images 默认字体大小为0 设置继承上级-->
                         <div class="ui images" style="font-size: inherit">
                             <div class="image">
-                                <img src="../static/images/avatar.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                                <img src="../static/images/avatar.jpg" th:src="@{/images/avatar.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
                                 <div>支付宝</div>
                             </div>
                             <div class="image">
-                                <img src="../static/images/avatar.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                                <img src="../static/images/avatar.jpg" th:src="@{/images/avatar.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
                                 <div>微信</div>
                             </div>
                         </div>
@@ -127,8 +130,8 @@
                 <div class="ui middle aligned grid">
                     <div class="eleven wide column">
                         <ui class="list">
-                            <li>作者：Aaron</li>
-                            <li>发表时间：2020-03-26 23:53</li>
+                            <li>作者：<span th:text="${blog.user.nickname}">Aaron</span> <a href="#" th:href="@{/about}" target="_blank">(联系作者)</a></li>
+                            <li>发表时间：<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-03-26 23:53</span></li>
                             <li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
                             <li>转载声明：如果是转载博主转载的文章，请附上原文链接</li>
                             <li>公众号转载：请在文末添加作者公众号二维码（公众号二维码见右边，欢迎关注）</li>
@@ -136,7 +139,7 @@
                     </div>
                     <div class="five wide column">
                         <!--right floated 往右边浮动-->
-                        <img src="../static/images/avatar.jpg" alt="" class="ui right floated rounded bordered image" style="width: 110px">
+                        <img src="../static/images/avatar.jpg" th:href="@{/images/avatar.jpg}" alt="" class="ui right floated rounded bordered image" style="width: 110px">
                     </div>
                 </div>
 
