@@ -324,7 +324,9 @@
     <script src="../static/lib/qrcode/qrcode.min.js"></script>
     <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
 <!--/*/</th:block>/*/-->
-<script>
+
+<!--加th:inline 下面的thymeleaf 语句才有效-->
+<script th:inline="javascript">
     $('.menu.toggle').click(function () {
         /*toggleClass 有则去除没有则加上*/
         $('.m-item').toggleClass('m-mobile-hide')
@@ -359,9 +361,14 @@
         // on : 'hover',
         position : 'left center'
     });
-
+    // 部署需要指定服务器域名
+    // var serurl = "http://www.aaron.me"
+    var serurl = "127.0.0.1:8080";
+    
+    /*"" 就是把这个变成字符串*/
+    var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
-        text: "http://jindo.dev.naver.com/collie",
+        text: serurl+url,
         width: 110,
         height: 110,
         colorDark : "#000000",
