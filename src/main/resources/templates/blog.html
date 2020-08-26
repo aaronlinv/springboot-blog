@@ -229,8 +229,8 @@
                 </div>
                 <!--ui form 表格样式-->
                 <div class="ui form" id="comment-form">
-                    <input type="text" name="blog.id" th:value="${blog.id}">
-                    <input type="text" name="parentComment.id" th:value="-1">
+                    <input type="hidden" name="blog.id" th:value="${blog.id}">
+                    <input type="hidden" name="parentComment.id" th:value="-1">
                     <div class="field">
                         <textarea name="content" placeholder="请输入评论信息..." id="" cols="30" rows="10"></textarea>
                     </div>
