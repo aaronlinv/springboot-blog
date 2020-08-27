@@ -35,6 +35,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional
     public Blog getAndConvert(Long id) {
         Blog blog = blogRepository.getOne(id);
         if (blog == null) {
@@ -48,6 +49,9 @@ public class BlogServiceImpl implements BlogService {
         String content =b.getContent();
         String markdown = MarkdownUtils.markdownToHtmlExtensions(content);
         b.setContent(markdown);
+        
+        // 更新浏览次数
+        blogRepository.updateViews(id);
         return b;
     }
 
