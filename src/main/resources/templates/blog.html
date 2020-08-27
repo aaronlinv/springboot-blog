@@ -439,18 +439,18 @@
     function postData() {
         $('#comment-container').load(/*[[@{/comments}]]*/"",{
             "parentComment.id" :$("[name='parentComment.id']").val(),
-            "blog.id":$("[name='blog.name']").val(),
+            "blog.id":$("[name='blog.id']").val(),
             "nickname":$("[name='nickname']").val(),
             "email":$("[name='email']").val(),
-            "content":$("[name='content']").val
-        }),function (responseTxt,statusTxt,xhr) {
+            "content":$("[name='content']").val()
+        },function (responseTxt,statusTxt,xhr) {
             // 回调方法
             // 滚动到评论区域 时间500
             $(window).scrollTo($('#comment-container'),500);
             
             clearContent();
             
-        };
+        });
     }
     
     function clearContent() {
