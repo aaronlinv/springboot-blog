@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     
     @Override
     public List<Comment> listCommentByBlogId(Long id) {
-        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
+        Sort sort = Sort.by("createTime");
         List<Comment> comments = commentRepository.findByBlogIdAndAndParentCommentNull(id,sort);
         
         // 原来的评论回复列表是一种树状结构 一层接着一层，现在把回复的都存到一个list里

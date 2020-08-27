@@ -484,7 +484,8 @@
         },function (responseTxt,statusTxt,xhr) {
             // 回调方法
             // 滚动到评论区域 时间500
-            $(window).scrollTo($('#comment-container'),500);
+            // 因为是顺序，最新的在最下面，不用回滚到评论最开头
+            // $(window).scrollTo($('#comment-container'),500);
             
             clearContent();
             
