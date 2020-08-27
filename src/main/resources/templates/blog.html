@@ -168,7 +168,36 @@
                                         <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)" one-link-mark="yes">回复</a>
                                     </div>
                                 </div>
+                                <!--回复评论-->
+                                <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
+                                    <div class="comment" th:each="reply : ${comment.replyComments}">
+                                        <a class="avatar" one-link-mark="yes">
+                                            <img src="http://lorempixel.com/100/100/" th:src="@{${reply.avatar}}">
+                                        </a>
+                                        <div class="content">
+
+                                            <a class="author" one-link-mark="yes">
+                                                <span th:text="${reply.nickname}">Matt</span>
+                                                <span>&nbsp;</span>
+                                                <span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@小白</span>
+
+                                            </a>
+                                            <div class="metadata">
+                                                <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                            </div>
+                                            <div class="text" th:text="${reply.content}">
+                                                How artistic!
+                                            </div>
+                                            <div class="actions">
+                                                <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}" onclick="reply(this)" one-link-mark="yes">回复</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
+                            
+                            
                             <!--/*-->
                             <div class="comment">
                                 <a class="avatar" one-link-mark="yes">
@@ -441,7 +470,6 @@
     
     // 页面加载完成后加载评论
     $(function () {
-        alert("hello");
         $('#comment-container').load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comment/6");
     });
     

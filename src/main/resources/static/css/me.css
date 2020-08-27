@@ -139,6 +139,10 @@ body{
 .m-black{
     color: #333 !important;
 }
+
+.m-teal {
+    color: #00B5AD !important;
+}
 /*显示导航 的按钮 平时隐藏*/
 .m-mobile-show {
     display: none !important;
