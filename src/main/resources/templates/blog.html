@@ -439,6 +439,13 @@
        
     });
     
+    // 页面加载完成后加载评论
+    $(function () {
+        alert("hello");
+        $('#comment-container').load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comment/6");
+    });
+    
+    
     function postData() {
         $('#comment-container').load(/*[[@{/comments}]]*/"",{
             "parentComment.id" :$("[name='parentComment.id']").val(),
