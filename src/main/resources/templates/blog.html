@@ -152,23 +152,24 @@
                         <!--threaded 头像间加上连线-->
                         <div class="ui threaded comments" style="max-width: 100%">
                             <h3 class="ui dividing header">评论</h3>
-                            <div class="comment">
+                            <div class="comment" th:each="comment : ${comments}">
                                 <a class="avatar" one-link-mark="yes">
-                                    <img src="http://lorempixel.com/100/100/">
+                                    <img src="http://lorempixel.com/100/100/" th:src="@{${comment.avatar}}">
                                 </a>
                                 <div class="content">
-                                    <a class="author" one-link-mark="yes">Matt</a>
+                                    <a class="author" one-link-mark="yes" th:text="${comment.nickname}">Matt</a>
                                     <div class="metadata">
-                                        <span class="date">Today at 5:42PM</span>
+                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                     </div>
-                                    <div class="text">
+                                    <div class="text" th:text="${comment.content}">
                                         How artistic!
                                     </div>
                                     <div class="actions">
-                                        <a class="reply" data-commentid="1" data-commentnickname="Matt" onclick="reply(this)" one-link-mark="yes">回复</a>
+                                        <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)" one-link-mark="yes">回复</a>
                                     </div>
                                 </div>
                             </div>
+                            <!--/*-->
                             <div class="comment">
                                 <a class="avatar" one-link-mark="yes">
                                     <img src="http://lorempixel.com/100/100/">
@@ -222,6 +223,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--*/-->
 
                         </div>
 
@@ -430,6 +432,7 @@
        var boo = $('.ui.form').form('validate form');
        if ( boo){
            console.log('校验成功');
+           postData();
        } else {
            console.log('校验失败');
        }
