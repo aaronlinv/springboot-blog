@@ -61,7 +61,13 @@ public class BlogServiceImpl implements BlogService {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = new ArrayList<>();
-                if (blog != null && !"".equals(blog.getTitle())) {
+                // 原来写法 if (blog != null && !"".equals(blog.getTitle())) {
+                // 如果blog = new blogQuery(); 那么blog !=null
+                // 这时 blog.getTitle 为null 满足不等于空
+                // 就会把null 添加到这个 predicates
+                // 导致筛选不到博客
+                
+                if (blog.getTitle() != null &&!"".equals(blog.getTitle())) {
                     predicates.add(criteriaBuilder.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
                 }
 
