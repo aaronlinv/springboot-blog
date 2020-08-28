@@ -6,5 +6,9 @@
 spring:
   profiles:
     active: dev
+
+  messages:
+    # 默认是messages 所以文件名要叫messages
+    basename: i18n/messages
     
 comment.avatar: /images/avatar.jpg
