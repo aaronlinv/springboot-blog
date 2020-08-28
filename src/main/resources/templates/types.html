@@ -129,10 +129,10 @@
                 <div class="ui middle aligned two column grid">
 
                     <div class="column">
-                        <a th:href="@{/(page=${page.number}-1)}" th:if="${page.first}" href="#" class="ui mini teal basic button">上一页</a>
+                        <a th:href="@{/types/{id}(id=${activeTypeId},page=${page.number}-1)}" th:unless="${page.first}" href="#" class="ui mini teal basic button">上一页</a>
                     </div>
                     <div class="right aligned column">
-                        <a th:href="@{/(page=${page.number}+1)}" th:if="${page.last}"href="#" class="ui mini teal basic button">下一页</a>
+                        <a th:href="@{/types/{id}(id=${activeTypeId},page=${page.number}+1)}" th:unless="${page.last}"href="#" class="ui mini teal basic button">下一页</a>
                     </div>
                 </div>
             </div>
