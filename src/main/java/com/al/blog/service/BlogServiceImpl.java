@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -42,11 +40,11 @@ public class BlogServiceImpl implements BlogService {
         // 所以new 一个新对象
         Blog b = new Blog();
         BeanUtils.copyProperties(blog, b);
-        
-        String content =b.getContent();
+
+        String content = b.getContent();
         String markdown = MarkdownUtils.markdownToHtmlExtensions(content);
         b.setContent(markdown);
-        
+
         // 更新浏览次数
         blogRepository.updateViews(id);
         return b;
@@ -63,8 +61,8 @@ public class BlogServiceImpl implements BlogService {
                 // 这时 blog.getTitle 为null 满足不等于空
                 // 就会把null 添加到这个 predicates
                 // 导致筛选不到博客
-                
-                if (blog.getTitle() != null &&!"".equals(blog.getTitle())) {
+
+                if (blog.getTitle() != null && !"".equals(blog.getTitle())) {
                     predicates.add(criteriaBuilder.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
                 }
 
@@ -98,7 +96,7 @@ public class BlogServiceImpl implements BlogService {
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 // 关联表
                 Join join = root.join("tags");
-                
+
                 return criteriaBuilder.equal(join.get("id"), tagId);
             }
         }, pageable);
@@ -129,6 +127,18 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Map<String, List<Blog>> archiveBlog() {
+
+        List<String> years = blogRepository.findGroupByYear();
+        Map<String, List<Blog>> map = new HashMap<>();
+        
+        for (String year : years) {
+            map.put(year,blogRepository.findByYear(year));
+        }
+        return map;
+    }
+
+    @Override
     @Transactional
     public Blog updateBlog(Long id, Blog blog) {
         Blog blogById = blogRepository.getOne(id);
@@ -143,5 +153,10 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     public void deleteBlog(Long id) {
         blogRepository.deleteById(id);
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 }

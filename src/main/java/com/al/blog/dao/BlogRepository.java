@@ -25,4 +25,11 @@ public interface BlogRepository extends JpaRepository<Blog,Long>, JpaSpecificati
     @Modifying
     @Query("update t_blog b set b.views = b.views+1 where b.id = ?1 ")
     int updateViews(Long id);
+    
+    // group by 不能用之前定义的year order by可以
+    @Query("select function('date_format',b.updateTime,'%Y') as year from t_blog b group by function('date_format',b.updateTime,'%Y') order by year desc ")
+    List<String> findGroupByYear();
+    
+    @Query("select b from t_blog b where function('date_format',b.updateTime,'%Y') =?1")
+    List<Blog> findByYear(String year);
 }
