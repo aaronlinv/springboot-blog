@@ -25,8 +25,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
-    private static final String INPUT = "/admin/blogs-input";
-    private static final String LIST = "/admin/blogs";
+    private static final String INPUT = "admin/blogs-input";
+    private static final String LIST = "admin/blogs";
     private static final String REDIRECT_LIST = "redirect:/admin/blogs";
 
     @Autowired
@@ -55,7 +55,7 @@ public class BlogController {
         System.out.println("listBlog == >"+blogService.listBlog(pageable, blog).getTotalElements());
 
         // 返回这个地址下的blogList片段 ，实现局部渲染
-        return "/admin/blogs ::blogList";
+        return "admin/blogs ::blogList";
     }
 
     @GetMapping("/blogs/input")

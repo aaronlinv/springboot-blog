@@ -27,13 +27,13 @@ public class TagController {
     public String tagsPage(@PageableDefault(size = 3, sort = {"id"}, direction = Sort.Direction.DESC)
                                    Pageable pageable, Model model) {
         model.addAttribute("page", tagService.listTag(pageable));
-        return "/admin/tags";
+        return "admin/tags";
     }
 
     @GetMapping("/tags/input")
     public String input(Model model) {
         model.addAttribute("tag", new Tag());
-        return "/admin/tags-input";
+        return "admin/tags-input";
 
     }
 
@@ -46,7 +46,7 @@ public class TagController {
         }
 
         if (result.hasErrors()) {
-            return "/admin/tags-input";
+            return "admin/tags-input";
         }
 
         Tag t = tagService.save(tag);
@@ -79,7 +79,7 @@ public class TagController {
         }
 
         if (result.hasErrors()) {
-            return "/admin/tags-input";
+            return "admin/tags-input";
         }
         // 更新
         Tag t = tagService.updateTag(id,tag);
