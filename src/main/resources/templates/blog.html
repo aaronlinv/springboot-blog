@@ -405,7 +405,7 @@
     });
     // 部署需要指定服务器域名
     // var serurl = "http://www.aaron.me"
-    var serurl = "127.0.0.1:8080";
+    var serurl = /*[[#{blog.serurl}]]*/"127.0.0.1:8080";
     
     /*"" 就是把这个变成字符串*/
     var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
